@@ -118,15 +118,14 @@
       // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
       // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
       //do this in the console of the wiki
-      //a. find the class where boulevards are listed under. here it's mw-category
-      const category = document.querySelector('.mw-category')
-      //you can search within Category -> creates a nodelist with all the links
-      const links = category.querySelectorAll("a")
-      //convert the nodelist into array
-      const de = links.map(link => link.textContent)
-
-
-
+      // //a. find the class where boulevards are listed under. here it's mw-category
+      // const category = document.querySelector(".mw-category");
+      // //you can search within Category -> creates a nodelist with all the links -> convert to array
+      // const links = [...category.querySelectorAll("a")];
+      // //convert the nodelist into array
+      // const de = links
+      //   .map((link) => link.textContent)
+      //   .filter((name) => name.includes("de"));
 
       // 7. sort Exercise
       // Sort the people alphabetically by first name
@@ -158,7 +157,18 @@
         "truck",
       ];
 
-      const sumData = reduce((acc, curr) => acc
+      //initial value is an empty {}
+      const sumData = data.reduce(function (acc, curr) {
+        // if acc does not have curr in it, then it's 0
+        if (!acc[curr]) {
+          acc[curr] = 0;
+        }
+        //otherwise if acc has cur in it, then increase it by 1
+        acc[curr]++;
+        return acc;
+      }, {});
+
+      console.log(sumData);
     </script>
   </body>
 </html>
