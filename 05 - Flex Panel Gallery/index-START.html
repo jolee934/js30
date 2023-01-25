@@ -91,6 +91,10 @@
         transform: translateY(100%);
       }
 
+      .panel.open-active > *:last-child {
+        transform: translateY(0);
+      }
+
       .panel p {
         text-transform: uppercase;
         font-family: "Amatic SC", cursive;
@@ -104,6 +108,7 @@
 
       .panel.open {
         font-size: 40px;
+        flex: 5;
       }
     </style>
 
@@ -137,19 +142,28 @@
 
     <script>
       //1. Assign panels to a variable -> will be a node list; convert to array
-      const p = [...document.querySelectorAll(".panel")];
+      const panel = [...document.querySelectorAll(".panel")];
 
-      console.log(p);
+      //2. Create functions to toggle
+
+      function open() {
+        console.log(this);
+        this.classList.toggle("open");
+      }
+
+      function openActive(e) {
+        console.log(e);
+        //why does this not work? why is an if statement required??
+        this.classList.toggle("open-active");
+        // console.log(e);
+        // if (e.propertyName.includes("flex")) {
+        //   this.classList.toggle("open-active");
+        // }
+      }
 
       //2. Add eventlistener to mouse hover; since it's array, need for each
-
-      p.forEach((input) =>
-        input.addEventListener("mouseover", function () {
-          //add open-active class to panel on mouseover
-          console.log(input);
-          input.classList.toggle(".open-active");
-        })
-      );
+      panel.forEach((p) => p.addEventListener("click", open));
+      panel.forEach((p) => p.addEventListener("transitionend", openActive));
     </script>
   </body>
 </html>
