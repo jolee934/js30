@@ -1,22 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Type Ahead 👀</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Type Ahead 👀</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form class="search-form">
+      <input type="text" class="search" placeholder="City or State" />
+      <ul class="suggestions">
+        <li>Filter for a city</li>
+        <li>or a state</li>
+      </ul>
+    </form>
+    <script>
+      const endpoint =
+        "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json";
 
-  <form class="search-form">
-    <input type="text" class="search" placeholder="City or State">
-    <ul class="suggestions">
-      <li>Filter for a city</li>
-      <li>or a state</li>
-    </ul>
-  </form>
-<script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+      //need to store json data into array
+      const cities = [];
 
-</script>
-</body>
+      //promise to fetch -> will return raw data that needs to be parsed into Json with another promise
+      fetch(endpoint)
+        .then((blob) => blob.json())
+        //since cities is const, need to push data into it
+        //need to spread into data; otherwise, it will push it but it won't be part of the array already in there
+        .then((data) => cities.push(...data));
+
+      function findMatches(wordToMatch, cities) {
+        return cities.filter((place) => {
+          //here, figure out if city or state matches search
+          const regex = new RegExp(wordToMatch, "gi");
+        });
+      }
+    </script>
+  </body>
 </html>
